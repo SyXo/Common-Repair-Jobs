@@ -1,0 +1,36 @@
+#Save as Batch file, run within Common.zip. 
+@setlocal enableextensions
+@cd /d "%~dp0"
+@echo off
+TITLE Common Jobs
+
+echo "Kill any programs if needed"
+
+start taskmgr.exe
+
+echo "Play while you wait!"
+start /MIN WorkBackupTools\SolitaireXP\sol.exe
+
+#have Portable Apps binary installed, eventually replace with a batch script to pull the required updates/files. 
+echo "Portable Apps: Select the App for the Job!"
+start /WAIT \Start.exe
+
+
+echo "Delete Unused Apps"
+start /WAIT /MAX appwiz.cpl
+
+echo "show system specs and some shortcuts to system stuff"
+start /WAIT msconfig
+
+echo "Reset network settings, quick-fix for network issues"
+start /WAIT NetworkReset.bat
+
+echo "rkill is for backround stuff, and adwcleaner and stinger and kvrt are for malicious programs. See VR Guide.txt for more info"
+cd "Simple VR"
+start /WAIT /MAX QuickRemoval.bat
+
+
+echo "reset to apply changes"
+shutdown /r
+
+exit
